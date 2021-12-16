@@ -59,14 +59,23 @@
 #define CONFIG_ROOTPATH			"/srv/nfs"
 #endif /* CONFIG_CMD_NET */
 
+/**
+ * SYS_MEMTEST_START    0x40000000	1.5GiB
+ * kernel_addr_r        0x40000000	64MiB
+ * fdt_addr_r           0x44000000	5MiB
+ * loadaddr             0x44500000	43MiB
+ * scriptaddr           0x47000000	4MiB
+ * ramdisk_addr_r       0x47400000	64MiB
+ */
+
 #define MEM_LAYOUT_ENV_SETTINGS \
-	"fdt_addr_r=0x43000000\0" \
+	"fdt_addr_r=0x44000000\0" \
 	"kernel_addr_r=0x40000000\0" \
-	"ramdisk_addr_r=0x46400000\0" \
-	"scriptaddr=0x46000000\0"
+	"ramdisk_addr_r=0x47400000\0" \
+	"scriptaddr=0x47000000\0"
 
 /* Link Definitions */
-#define CONFIG_LOADADDR			0x43500000
+#define CONFIG_LOADADDR			0x44500000
 #define CONFIG_SYS_LOAD_ADDR		CONFIG_LOADADDR
 
 /* Enable Distro Boot */
