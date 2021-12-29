@@ -40,22 +40,26 @@
 #define FEC_ENET_ENABLE_TXC_DELAY
 
 /**
- * SYS_SDRAM_BASE	0x80000000	0.125MiB
- * SYS_TEXT_BASE	0x80020000	2.375MiB
- * kernel_addr_r	0x80280000	45.5MiB
- * fdt_addr_r		0x83000000	1MiB
- * scriptaddr		0x83100000	15MiB
- * __RESERVED__		0x84000000	48MiB
- * loadaddr		0x87000000	48MiB
- * ramdisk_addr_r	0x8a000000	288MiB (to hdp_addr)
- * SYS_MEMTEST_START	0x90000000
- * hdp_addr		0x9c000000
- * SYS_MEMTEST_END	0xC0000000
+ * SYS_TEXT_BASE        0x80020000      47.9MiB
+ * fdt_addr_r           0x83000000      1MiB
+ * scriptaddr           0x83100000      15MiB
+ * decoder_boot         0x84000000      4MiB
+ * encoder_boot         0x86000000      4MiB
+ * loadaddr             0x87000000      48MiB
+ * Tezi DTB             0x87000000      48MiB
+ * Tezi overlays        0x870F0000      48MiB
+ * M4 (FreeRTOS)        0x88000000      128MiB
+ * ramdisk_addr_r       0x8a000000      96MiB
+ * SYS_MEMTEST_START    0x90000000
+ * RPMSG/IPU/DSP        0x90000000      96MiB
+ * kernel_addr_r        0x96000000      64MiB
+ * hdp_addr             0x9c000000      64MiB
+ * SYS_MEMTEST_END      0xC0000000
  */
 #define MEM_LAYOUT_ENV_SETTINGS \
 	"fdt_addr_r=0x83000000\0" \
 	"hdp_addr=0x9c000000\0" \
-	"kernel_addr_r=0x80280000\0" \
+	"kernel_addr_r=0x96000000\0" \
 	"ramdisk_addr_r=0x8a000000\0" \
 	"scriptaddr=0x83100000\0"
 
