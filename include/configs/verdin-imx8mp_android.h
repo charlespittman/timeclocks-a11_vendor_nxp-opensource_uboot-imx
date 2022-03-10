@@ -1,0 +1,117 @@
+/*
+ * Copyright 2020 NXP
+ *
+ * SPDX-License-Identifier:	GPL-2.0+
+ */
+
+#ifndef IMX8MP_VERDIN_ANDROID_H
+#define IMX8MP_VERDIN_ANDROID_H
+
+#define CONFIG_ANDROID_AB_SUPPORT
+#ifdef CONFIG_ANDROID_AB_SUPPORT
+#define CONFIG_SYSTEM_RAMDISK_SUPPORT
+#endif
+#define FSL_FASTBOOT_FB_DEV "mmc"
+
+#ifdef CONFIG_SYS_MALLOC_LEN
+#undef CONFIG_SYS_MALLOC_LEN
+#define CONFIG_SYS_MALLOC_LEN           (32 * SZ_1M)
+#endif
+
+#undef CONFIG_EXTRA_ENV_SETTINGS
+#undef CONFIG_BOOTCOMMAND
+
+#define CONFIG_EXTRA_ENV_SETTINGS		\
+	"splashpos=m,m\0"			\
+	"splashimage=0x50000000\0"		\
+	"fdt_high=0xffffffffffffffff\0"		\
+	"initrd_high=0xffffffffffffffff\0"	\
+
+/* Enable mcu firmware flash */
+#ifdef CONFIG_FLASH_MCUFIRMWARE_SUPPORT
+#define ANDROID_MCU_FRIMWARE_DEV_TYPE DEV_MMC
+#define ANDROID_MCU_FIRMWARE_START 0x500000
+#define ANDROID_MCU_FIRMWARE_SIZE  0x40000
+#define ANDROID_MCU_FIRMWARE_HEADER_STACK 0x20020000
+#endif
+
+#if !defined(CONFIG_IMX_TRUSTY_OS) || !defined(CONFIG_DUAL_BOOTLOADER) || \
+    !defined(CONFIG_SPL_BUILD)
+#undef CONFIG_FSL_CAAM_KB
+#endif
+
+#ifdef CONFIG_DUAL_BOOTLOADER
+#define CONFIG_SYS_SPL_PTE_RAM_BASE    0x41580000
+
+#ifdef CONFIG_IMX_TRUSTY_OS
+#define BOOTLOADER_RBIDX_OFFSET  0x3FE000
+#define BOOTLOADER_RBIDX_START   0x3FF000
+#define BOOTLOADER_RBIDX_LEN     0x08
+#define BOOTLOADER_RBIDX_INITVAL 0
+#endif
+
+#endif
+
+#ifdef CONFIG_IMX_TRUSTY_OS
+#define AVB_RPMB
+#define KEYSLOT_HWPARTITION_ID 2
+#define KEYSLOT_BLKS             0x1FFF
+#define NS_ARCH_ARM64 1
+
+#ifdef CONFIG_ID_ATTESTATION
+#define ATTESTATION_ID_BRAND "Android"
+#define ATTESTATION_ID_DEVICE "evk_8mp"
+#define ATTESTATION_ID_MANUFACTURER "nxp"
+#define ATTESTATION_ID_MODEL "EVK_8MP"
+#ifdef CONFIG_ATTESTATION_ID_PRODUCT
+#undef CONFIG_ATTESTATION_ID_PRODUCT
+#endif
+#define CONFIG_ATTESTATION_ID_PRODUCT "evk_8mp"
+#endif
+
+#endif
+
+#ifdef CONFIG_FSL_FSPI
+#define FSL_FSPI_FLASH_SIZE             SZ_32M
+#define FSL_FSPI_FLASH_NUM              1
+#define FSPI0_BASE_ADDR                 0x30bb0000
+#define FSPI0_AMBA_BASE                 0x0
+#define CONFIG_FSPI_QUAD_SUPPORT
+
+#define CONFIG_SYS_FSL_FSPI_AHB
+#endif
+
+#ifdef CONFIG_SPL_BUILD
+#define CONFIG_SPL_STACK                0x187FF0
+#define CONFIG_SPL_BSS_START_ADDR      0x0095e000
+#define CONFIG_SPL_BSS_MAX_SIZE        0x2000   /* 8 KB */
+#define CONFIG_SYS_SPL_MALLOC_START    0x42200000
+#define CONFIG_SYS_SPL_MALLOC_SIZE     SZ_512K  /* 512 KB */
+
+#define CONFIG_MALLOC_F_ADDR            0x184000 /* malloc f used before GD_FLG_FULL_MALLOC_INIT set */
+
+#define CONFIG_SPL_ABORT_ON_RAW_IMAGE
+
+#define CONFIG_POWER
+#define CONFIG_POWER_I2C
+#define CONFIG_POWER_PCA9450
+
+#define CONFIG_SYS_I2C
+
+#endif
+
+#define CONFIG_CMD_READ
+
+#ifdef CONFIG_DM_VIDEO
+#define CONFIG_VIDEO_LOGO
+#define CONFIG_SPLASH_SCREEN
+#define CONFIG_SPLASH_SCREEN_ALIGN
+#define CONFIG_CMD_BMP
+#define CONFIG_BMP_16BPP
+#define CONFIG_BMP_24BPP
+#define CONFIG_BMP_32BPP
+#define CONFIG_VIDEO_BMP_RLE8
+#define CONFIG_VIDEO_BMP_LOGO
+#endif
+
+#endif /* IMX8MP_VERDIN_ANDROID_H */

@@ -177,4 +177,7 @@
 #define CONFIG_USBD_HS
 #define CONFIG_USB_GADGET_VBUS_DRAW		2
 
+#if defined(CONFIG_ANDROID_SUPPORT)
+#include "verdin-imx8mp_android.h"
+#endif
 #endif /* __VERDIN_IMX8MP_H */
