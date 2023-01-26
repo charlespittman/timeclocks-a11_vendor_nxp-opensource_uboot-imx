@@ -139,18 +139,6 @@ int show_board_info(void)
 	return 0;
 }
 
-#ifdef CONFIG_USB_GADGET_DOWNLOAD
-int g_dnl_bind_fixup(struct usb_device_descriptor *dev, const char *name)
-{
-	unsigned short usb_pid;
-
-	usb_pid = TORADEX_USB_PRODUCT_NUM_OFFSET + tdx_hw_tag.prodid;
-	put_unaligned(usb_pid, &dev->idProduct);
-
-	return 0;
-}
-#endif
-
 #if defined(CONFIG_OF_LIBFDT)
 int ft_common_board_setup(void *blob, bd_t *bd)
 {
