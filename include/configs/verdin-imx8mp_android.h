@@ -1,5 +1,6 @@
 /*
  * Copyright 2020 NXP
+ * Copyright (C) 2022 Kynetics LLC
  *
  * SPDX-License-Identifier:	GPL-2.0+
  */
